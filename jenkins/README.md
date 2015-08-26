@@ -5,7 +5,7 @@
   
   下記の環境が構築されます。
   
-  - Jenkins自体もDockerホストになっており、各アプリケーション用のDockerコンテナを起動してテストを行う
+  - Jenkins自体もDockerホストになっており、各アプリケーション用のDockerコンテナを起動してテストを行います。
   
   - このDockerfile自体で提供するJOB
     - 単純なHello, World ジョブ(動作確認用)
@@ -35,7 +35,7 @@
   ```
   
   - Dockerコンテナ起動
-    jenkinsコンテナの中でDockerを使うので、jenkinsコンテナ自体は特権モード(--privileged)で起動する
+    jenkinsコンテナの中でDockerを使うので、jenkinsコンテナ自体は特権モード(--privileged)で起動します。
 
   ```sh
   $ docker run --privileged -p 8443:8443 -d --name jenkins jenkins:v1
@@ -50,7 +50,7 @@
   ```
   
   - jenkinsにアクセス
-  - 
+   
     - ssl証明書警告画面
     
       ブラウザから`https://(your docker host ip):8443/`にアクセスします。
@@ -96,17 +96,18 @@ Jenkinsを実際に起動した上で管理画面から各種設定、プラグ�
 (以下ホストOS側でのプロンプトを`$`、jenkinsコンテナ内でのプロンプトを`$$`と表記します)
 
 - Jenkinsコンテナを起動
-  このDockerコンテナに追加した方が良いと思われるようなJenkinsの設定を管理画面で行い、それを保存したいとする。
+  このDockerコンテナに追加した方が良いと思われるようなJenkinsの設定を管理画面で行い、それを保存したいとします。
 
-- Jenkinsコンテナにアタッチする
+- Jenkinsコンテナにアタッチします。
   jenkinsのホストOSから
 
   ```sh
   $ docker exec -it jenkins /bin/bash
   ```
   
-- Jenkinsのバックアップを行う
-  で接続し、バックアップスクリプト(`jenkins_backup.sh`)を実行する。
+- Jenkinsのバックアップを行います。
+- 
+  バックアップスクリプト(`jenkins_backup.sh`)を実行します。
   
   ```sh
   $$ cd /var/lib/jenkins_helper/backup
