@@ -50,15 +50,17 @@
   ```
   
   - jenkinsにアクセス
-　  ブラウザから`https://(your docker host ip):8443/`にアクセスします。
-    # TODO　あとで画像貼り付け
+  - 
+    - ssl証明書警告画面
+    
+      ブラウザから`https://(your docker host ip):8443/`にアクセスします。
+      独自に発行したSSL証明書なので警告が出るはずです。信頼するを選択して進めてください。
 
-    認証が必要になるので、
+    - ログイン画面
+      - ユーザ名: neogenia-jenkins
+      - パスワード: n-j-ne0gen1a
     
-    - ユーザ名: neogenia-jenkins
-    - パスワード: n-j-ne0gen1a
-    
-    でログインします。
+      でログインします。
 
 ###各種補足
 #### jenkins内でのDocker実行について
@@ -71,6 +73,12 @@ jenkinsからneogenia-jpのgithubリポジトリにアクセスするため、`n
 #### ssl設定
 jenkinsは組み込みのwebサーバのJettyで実行されており、https接続用の証明書ファイルなどが
 `/var/lib/jenkins/.ssl`フォルダに格納されています。
+
+sslの証明書は
+
+`keytool -genkey -alias jenkins-ssl-cert -keyalg RSA -keystore _ssl/.keystore -validity 7300`
+
+で作成しています。パスフレーズは`resources/run.sh`を参照してください。
 
 ##作成したJenkinsコンテナについて
 jenkins自体に変更を加えて（プラグイン追加、ジョブ追加など)もdockerコンテナを削除してしまうと保存されません。
