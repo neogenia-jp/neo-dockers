@@ -35,6 +35,7 @@
   ```
   
   - Dockerコンテナ起動
+  
     jenkinsコンテナの中でDockerを使うので、jenkinsコンテナ自体は特権モード(--privileged)で起動します。
 
   ```sh
@@ -106,7 +107,7 @@ Jenkinsを実際に起動した上で管理画面から各種設定、プラグ�
   ```
   
 - Jenkinsのバックアップを行います。
-- 
+ 
   バックアップスクリプト(`jenkins_backup.sh`)を実行します。
   
   ```sh
