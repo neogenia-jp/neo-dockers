@@ -78,6 +78,15 @@ do
 done
 popd >/dev/null
 
+# inc /dev/loop*
+for i in {8..127}; do
+  loopdev=/dev/loop${i}
+  if [[ -b ${loopdev} ]]; then
+    continue
+  fi
+  mknod -m 660 ${loopdev} b 7 ${i}
+  chgrp disk ${loopdev}
+done
 
 # If a pidfile is still around (for example after a container restart),
 # delete it so that docker can start.
