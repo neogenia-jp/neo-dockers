@@ -55,3 +55,14 @@
   ```
   `docker push`されたイメージはコンテナにマウントされたCentOS内の`/var/docker/registry`以下に保存されます。
   
+
+#### registryに対するWeb APIアクセス
+
+  `docker registry`は各種WEB APIがあるのでそれ経由でregistryの状態を確認できます。
+
+  - `mirroring registry server`にどんなイメージがミラーリングされているかを一覧で取得
+  ```
+  % curl 192.168.1.165:5001/v2/_catalog
+  {"repositories":["library/busybox","library/mariadb","library/redis","library/ubuntu","microsoft/aspnet"]}
+  ```
+
