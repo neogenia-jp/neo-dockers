@@ -1,0 +1,9 @@
+[Unit]
+Description=auto start of docker mirror registry containers
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/bin/bash -c "/usr/bin/docker start v2-mirror"
+[Install]
+WantedBy=multi-user.target
