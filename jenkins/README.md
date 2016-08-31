@@ -24,7 +24,7 @@
   - リポジトリをclone
 
   ```sh
-  $ git clone git@github.com:neogenia-jp/neo-dockers.git`
+  $ git clone git@github.com:neogenia-jp/neo-dockers.git
   $ cd neo-dockers/jenkins
   ```
   
@@ -82,9 +82,9 @@ sslの証明書は
 で作成しています。パスフレーズは`resources/run.sh`を参照してください。
 
 ##作成したJenkinsコンテナについて
-jenkins自体に変更を加えて（プラグイン追加、ジョブ追加など)もdockerコンテナを削除してしまうと保存されません。
+jenkins自体に変更を加えて(プラグイン追加、ジョブ追加など)もdockerコンテナを削除してしまうと保存されません。
 
-今後Dockerfileとは別にビルド済みDockerイメージをプライベートな環境でホスティングするようなイメージでいるため、このDockerイメージ自体を継承(Dockerfileの`FROM`）する想定で、各種環境ごとのカスタマイズは各環境自体で行うように想定しています。（例えば`VOLUME`が必要であれば継承した側で設定)
+今後Dockerfileとは別にビルド済みDockerイメージをプライベートな環境でホスティングするようなイメージでいるため、このDockerイメージ自体を継承(Dockerfileの`FROM`)する想定で、各種環境ごとのカスタマイズは各環境自体で行うように想定しています。(例えば`VOLUME`が必要であれば継承した側で設定)
 
 ただし、横断的に有用であるような設定はこのDockerfileに反映したほうが良いため、コンテナの設定であれば、このDockerfileを、Jenkinsの設定変更であれば、後述のjenkinsバックアップの方法で取得した内容で`resources/jenkins`の内容を置き換えてください。
 
@@ -147,6 +147,6 @@ Jenkinsを実際に起動した上で管理画面から各種設定、プラグ�
   $ docker cp jenkins:/var/lib/jenkins_helper/backup/tmp/jenkins_backup.tar.bz2 .
   ```
   
-  このjenkins_backup.tar.bz2の内容(正確にはこのアーカイブの中の`jenkins-backup`ディレクトリ以下）がこのDockerfileの`resources/jenkins/`以下の内容に相当します。反映する場合は適宜置き換えてください。
+  このjenkins_backup.tar.bz2の内容(正確にはこのアーカイブの中の`jenkins-backup`ディレクトリ以下)がこのDockerfileの`resources/jenkins/`以下の内容に相当します。反映する場合は適宜置き換えてください。
   
   
