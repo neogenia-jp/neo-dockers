@@ -9,7 +9,7 @@ RUN apt-get update -qq && apt-get install -qqy \
     iptables
     
 # Install Docker from Docker Inc. repositories.
-RUN curl -sSL https://get.docker.com/ubuntu/ | sh
+RUN curl -sSL https://get.docker.com/ | sh
 
 RUN ln -s -f /bin/true /usr/bin/chfn
 
