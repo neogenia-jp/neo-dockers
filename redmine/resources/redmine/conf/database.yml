@@ -1,0 +1,8 @@
+production:
+  adapter: mysql2
+  host: localhost
+  database: redmine
+  username: root
+  password:
+  encoding: utf8
+  socket: /var/run/mysqld/mysqld.sock

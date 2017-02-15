@@ -1,0 +1,4 @@
+check process redmine with pidfile /usr/share/redmine/tmp/pids/server.pid
+   start program = "/var/scripts/start_redmine.sh" timeout 120 seconds
+   stop program = "/var/scripts/stop_redmine.sh"
+   depend mysqld
