@@ -27,6 +27,15 @@ RUN  cd /tmp \
   && mv redmine_work_time /usr/share/redmine/plugins/ \
   && rm redmine_work_time-${work_time_ver}.zip
 
+# install plugin "verification"
+RUN  cd /usr/share/redmine/plugins/ \
+  && git clone "https://github.com/rails/verification.git"
+
+# install plugin "estimate timelog" with additional gem 'iconv'
+RUN  cd /usr/share/redmine/plugins/ \
+  && git clone "https://github.com/toritori0318/redmine_estimate_timelog.git"
+  && echo "gem 'iconv'" >> ../Gemfile
+
 # install plugin "code review"
 ARG code_review_ver=0.7.0
 RUN  cd /tmp \
