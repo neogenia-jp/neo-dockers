@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:xenial-20170214
 
 # Let's start with some basic stuff.
 RUN apt-get update -qq && apt-get install -qqy \
@@ -17,20 +17,16 @@ RUN ln -s -f /bin/true /usr/bin/chfn
 WORKDIR /tmp
 RUN wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
 RUN echo 'deb http://pkg.jenkins-ci.org/debian binary/' >> /etc/apt/sources.list
-RUN apt-get -y update
-RUN apt-get -y install jenkins
-
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update \
+     && apt-get -y install default-jre-headless jenkins git \
+     && apt-get clean
 
 # Install for docker strage
 #RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y linux-image-extra-$(uname -r) linux-image-extra-virtual
 
 #add jenkins(user) to docker(group)
 RUN gpasswd -a jenkins docker
-
-#install git
-RUN apt-get -y install git
-
-RUN apt-get clean
 
 #####################################################
 # Time Zone
@@ -43,9 +39,9 @@ RUN mkdir /var/lib/jenkins/.ssh
 ADD resources/_ssh/config /var/lib/jenkins/.ssh/
 ADD resources/_ssh/id_rsa_neogenia_bot /var/lib/jenkins/.ssh/
 
-RUN touch /var/lib/jenkins/.ssh/known_hosts
-RUN ssh-keyscan github.com >> /var/lib/jenkins/.ssh/known_hosts
-RUN chown -R jenkins /var/lib/jenkins/.ssh/*
+RUN touch /var/lib/jenkins/.ssh/known_hosts \
+     && ssh-keyscan github.com >> /var/lib/jenkins/.ssh/known_hosts \
+     && chown -R jenkins /var/lib/jenkins/.ssh/*
 
 #####################################################
 # ssh config
