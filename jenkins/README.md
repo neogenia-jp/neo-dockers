@@ -1,6 +1,6 @@
-#Jenkinsサーバ用Dockerfile
+# Jenkinsサーバ用Dockerfile
 
-##概要
+## 概要
   CI環境構築用のDockerコンテナです。
   
   下記の環境が構築されます。
@@ -17,10 +17,10 @@
       githubから取得してsample-testブランチ内にあるDockerfileからテスト環境を構築、テスト実行まで行います。
      
 ### 各種バージョン
-  - ホストOS: Ubuntu 14.04.3 LTS
-  - ホストOS上のDocker: 1.7.1
+  - ホストOS: Ubuntu 16.04.4 LTS
+  - ホストOS上のDocker: Dockerコンテナビルド時の最新版
   
-##Dockerイメージ作成
+## Dockerイメージ作成
   - リポジトリをclone
 
   ```sh
@@ -63,7 +63,7 @@
     
       でログインします。
 
-###各種補足
+### 各種補足
 #### jenkins内でのDocker実行について
 jenkins自体もDockerホストになっており、Docker in Dockerという構成になっています。
 このため、jenkins内でのDockerデーモン起動用にwrapdockerというスクリプトがありここでdockerデーモン用の各種設定をして起動しています。(Docker in Docker などでGoogle検索すると色々情報があると思います)
@@ -71,24 +71,24 @@ jenkins自体もDockerホストになっており、Docker in Dockerという構
 #### ssh設定
 jenkinsからneogenia-jpのgithubリポジトリにアクセスするため、`neogenia-bot`というgithubユーザ用のssh証明書とgithub.comへのsshの設定を行っています。
 
-#### ssl設定
+#### SSL証明書の設定
 jenkinsは組み込みのwebサーバのJettyで実行されており、https接続用の証明書ファイルなどが
 `/var/lib/jenkins/.ssl`フォルダに格納されています。
 
-sslの証明書は
+SSLの証明書は
 
 `keytool -genkey -alias jenkins-ssl-cert -keyalg RSA -keystore _ssl/.keystore -validity 7300`
 
 で作成しています。パスフレーズは`resources/run.sh`を参照してください。
 
-##作成したJenkinsコンテナについて
+## 作成したJenkinsコンテナについて
 jenkins自体に変更を加えて(プラグイン追加、ジョブ追加など)もdockerコンテナを削除してしまうと保存されません。
 
 今後Dockerfileとは別にビルド済みDockerイメージをプライベートな環境でホスティングするようなイメージでいるため、このDockerイメージ自体を継承(Dockerfileの`FROM`)する想定で、各種環境ごとのカスタマイズは各環境自体で行うように想定しています。(例えば`VOLUME`が必要であれば継承した側で設定)
 
 ただし、横断的に有用であるような設定はこのDockerfileに反映したほうが良いため、コンテナの設定であれば、このDockerfileを、Jenkinsの設定変更であれば、後述のjenkinsバックアップの方法で取得した内容で`resources/jenkins`の内容を置き換えてください。
 
-##バックアップ
+## バックアップ
 Jenkinsを実際に起動した上で管理画面から各種設定、プラグイン作成などを行うことになりますが、↑で記述したように現状はコンテナの内容はホストに連動させないようになっています。
 
 また、プラグインなどを追加した場合そのままバックアップすると不要なファイルも多いため、Jenkinsコンテナ内にJenkinsのバックアップ用のスクリプトを格納していますので、下記の手順でバックアップファイルを作成してホスト側で利用してください。
@@ -148,5 +148,4 @@ Jenkinsを実際に起動した上で管理画面から各種設定、プラグ�
   ```
   
   このjenkins_backup.tar.bz2の内容(正確にはこのアーカイブの中の`jenkins-backup`ディレクトリ以下)がこのDockerfileの`resources/jenkins/`以下の内容に相当します。反映する場合は適宜置き換えてください。
-  
   
