@@ -25,7 +25,7 @@ RUN apt-get -y update \
 # Install for docker strage
 #RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y linux-image-extra-$(uname -r) linux-image-extra-virtual
 
-#add jenkins(user) to docker(group)
+# add jenkins(user) to docker(group)
 RUN gpasswd -a jenkins docker
 
 #####################################################
@@ -64,6 +64,7 @@ ADD resources/wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
 
 WORKDIR /var/lib/jenkins
-ADD resources/run.sh /tmp/run.sh
-RUN chmod u+x /tmp/run.sh
-ENTRYPOINT /tmp/run.sh
+ADD resources/run.sh /var/docker-entrypoint.sh
+RUN chmod u+x /var/docker-entrypoint.sh
+ENTRYPOINT /var/docker-entrypoint.sh
+
