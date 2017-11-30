@@ -1,14 +1,13 @@
 FROM ubuntu:16.04
 
-MAINTAINER WATARU MAEDA <w.maeda@neogenia.co.jp>
+LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-RUN \cp -fp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # install packaged
 RUN apt-get update 
 RUN apt-get install -y --no-install-recommends \
+    tzdata \
     unzip wget \
     imagemagick libmagick++-dev gcc \
     ruby-dev \
@@ -16,6 +15,7 @@ RUN apt-get install -y --no-install-recommends \
     cron monit nginx mysql-server libmysqlclient-dev redmine \
     letsencrypt
 
+RUN \cp -fp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 RUN mkdir -p /usr/share/redmine/plugins/
 
@@ -33,7 +33,7 @@ RUN  cd /usr/share/redmine/plugins/ \
 
 # install plugin "estimate timelog" with additional gem 'iconv'
 RUN  cd /usr/share/redmine/plugins/ \
-  && git clone "https://github.com/toritori0318/redmine_estimate_timelog.git"
+  && git clone "https://github.com/toritori0318/redmine_estimate_timelog.git" \
   && echo "gem 'iconv'" >> ../Gemfile
 
 # install plugin "code review"
