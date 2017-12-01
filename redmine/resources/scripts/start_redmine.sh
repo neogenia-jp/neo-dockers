@@ -25,5 +25,5 @@ bundle install | tee -a $LOG_FILE 2>&1
 bin/rake db:migrate | tee -a $LOG_FILE 2>&1
 
 echo '----- START REDMINE -----'
-bin/rails server -b 0.0.0.0 -d
+chronic bin/rails server -b 0.0.0.0 -d | tee -a $LOG_FILE 2>&1
 

@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 
 RUN apt-get install -y --no-install-recommends \
     tzdata \
-    unzip wget \
+    unzip wget moreutils \
     imagemagick libmagick++-dev gcc \
     ruby-dev \
     git subversion mercurial \
