@@ -20,7 +20,7 @@ RUN \cp -fp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN mkdir -p /usr/share/redmine/plugins/
 
 # install plugin "work time"
-ARG work_time_ver=0.3.3
+ARG work_time_ver=0.3.4
 RUN  cd /tmp \
   && wget "https://bitbucket.org/tkusukawa/redmine_work_time/downloads/redmine_work_time-${work_time_ver}.zip" \
   && unzip redmine_work_time-${work_time_ver}.zip \
