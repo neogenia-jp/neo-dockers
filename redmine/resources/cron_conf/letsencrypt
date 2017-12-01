@@ -1,2 +1,2 @@
-14 4 14 */2 * root . /root/.profile && /var/scripts/run_certbot.sh --force-renew && /etc/init.d/nginx reload
+14 4 14 */2 * . /root/.profile && /var/scripts/run_certbot.sh --force-renew && /etc/init.d/nginx reload
 
