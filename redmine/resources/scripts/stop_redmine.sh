@@ -10,4 +10,4 @@ done
 # PIDファイルを削除
 rm tmp/pids/* 2>/dev/null
 
-echo '----- REDMINE STOPED -----'
+echo '----- REDMINE STOPPED -----'

@@ -5,6 +5,8 @@ cd /usr/share/redmine
 
 if [ ! -f .db_initialized ]; then
   echo '----- INITIALIZE DB -----'
+
+  # Exec database initialize SQL script.
   echo " exec $SCRIPT_DIR/initdb.sql"
   mysql < $SCRIPT_DIR/initdb.sql
   if [ -f $SCRIPT_DIR/old_data.dmp ]; then

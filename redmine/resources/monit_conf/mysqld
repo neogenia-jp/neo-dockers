@@ -1,6 +1,6 @@
 check process mysqld with pidfile /var/run/mysqld/mysqld.pid
-   start program = "/etc/init.d/mysql start"
-   stop program = "/etc/init.d/mysql stop"
+   start program = "/var/scripts/start_mysqld.sh" timeout 120 seconds
+   stop program = "/var/scripts/stop_mysqld.sh"
    if failed unixsocket /var/run/mysqld/mysqld.sock then restart
-   if 5 restarts within 5 cycles then timeout
+   if 2 restarts within 2 cycles then timeout
 
