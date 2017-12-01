@@ -18,12 +18,14 @@ else
   # clear log
   log=/usr/share/redmine/log/production.log
   echo > $log
+  log2=/var/log/redmine/startup
+  echo > $log2
 
   # start monit
   echo '--- START MONIT -----'
   if [ -z "$MONIT_ARGS" ]; then
     /etc/init.d/monit start
-    tail -f $log
+    tail -f $log2 $log
   else
     monit $MONIT_ARGS -I
   fi

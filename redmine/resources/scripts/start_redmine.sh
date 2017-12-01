@@ -10,6 +10,7 @@ if [ ! -f .db_initialized ]; then
   echo " exec $SCRIPT_DIR/initdb.sql"
   mysql < $SCRIPT_DIR/initdb.sql
   if [ -f $SCRIPT_DIR/old_data.dmp ]; then
+    echo '----- importing old_data -----'
     mysql redmine < $SCRIPT_DIR/old_data.dmp
   fi
   touch .db_initialized
@@ -20,10 +21,12 @@ rm tmp/pids/* 2>/dev/null
 
 LOG_FILE=log/production.log
 
-bundle install | tee -a $LOG_FILE 2>&1
+echo '----- bundle install -----'
+bundle install
 
-bin/rake db:migrate | tee -a $LOG_FILE 2>&1
+echo '----- database migrating -----'
+bin/rake db:migrate
 
-echo '----- START REDMINE -----'
-chronic bin/rails server -b 0.0.0.0 -d | tee -a $LOG_FILE 2>&1
+chronic bin/rails server -b 0.0.0.0 -d \
+  && echo '----- REDMINE STARTED -----'
 
