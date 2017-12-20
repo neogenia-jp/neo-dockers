@@ -1,4 +1,11 @@
-# Develop environment for Rails 5.x
+# Develop environment suite for Ruby 2.5 web app
+
+Target environment and frameworks are,
+- Rails 5.x (hosting by Puma)
+- Typescript
+- Semantic UI
+- MySQL
+- Capybara + PhantomJS (Testing framework)
 
 ## build
 
@@ -20,5 +27,4 @@ docker login
 # push
 docker push neogenia/ruby2.5-many-others
 ```
-
 

@@ -8,7 +8,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # install dependency packages
 RUN apt-get update && apt-get -y install \
         build-essential \
-        #libcurl4-openssl-dev \
         libreadline-dev \
         libssl-dev \
         libxml2-dev \
@@ -31,12 +30,12 @@ RUN apt-get update && apt-get -y install \
 ENV RUBY_VERSION 2.5.0-rc1
 RUN wget -O - http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc && make install ) \
- && rm -rf ruby-${RUBY_VERSION} \
+ && rm -rf /ruby-${RUBY_VERSION}
 
 ############################################################
 # install nodejs, npm packages
 RUN wget -O - https://deb.nodesource.com/setup_6.x | bash - \
- && apt-get -y install nodejs npm \
+ && apt-get -y install nodejs \
  && npm install -g gulp \
  && npm install -g typescript
 
