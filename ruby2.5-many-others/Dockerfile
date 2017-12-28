@@ -16,6 +16,7 @@ RUN apt-get update && apt-get -y install \
         zlib1g-dev \
         libmysqld-dev \
         libfontconfig \
+        imagemagick libmagickwand-dev \
         wget \
         unzip \
         git \
@@ -27,10 +28,11 @@ RUN apt-get update && apt-get -y install \
 
 ############################################################
 # install ruby
-ENV RUBY_VERSION 2.5.0-rc1
+ENV RUBY_VERSION 2.5.0
 RUN wget -O - http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc && make install ) \
  && rm -rf /ruby-${RUBY_VERSION}
+RUN gem install bundle
 
 ############################################################
 # install nodejs, npm packages
