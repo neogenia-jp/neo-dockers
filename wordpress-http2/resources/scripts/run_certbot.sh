@@ -1,13 +1,13 @@
-#bin/bash
+#!/bin/bash
 
-mkdir -p mkdir /var/www/letsencrypt
+WEBROOT=/var/www/letsencrypt
 
-letsencrypt certonly \
-      --text \
-      --webroot \
-      --webroot-path /var/www/letsencrypt \
-      --email ${LETS_ENCRYPT_CERT_MAIL}  \
-      -d ${APP_DOMAIN} \
-      --agree-tos \
-      --renew-by-default $*
+mkdir -p $WEBROOT
+
+letsencrypt certonly  \
+ -m $LETS_ENCRYPT_CERT_MAIL \
+ --agree-tos \
+ --non-interactive \
+ $* \
+ --webroot -w $WEBROOT -d $APP_DOMAIN
 

@@ -46,40 +46,28 @@ Please put tgz to `resources/scripts/data/wp-content.tgz`.
 
 ### Initialize
 
-example:
+https://qiita.com/tkykmw/items/9b6ba55bb2a6a5d90963
+
+test:
 
 ```
-/# cd /etc/letsencrypt/live/
-/etc/letsencrypt/live# ls
-www.neogenia.co.jp
-/etc/letsencrypt/live# rm -rf www.neogenia.co.jp/
-/etc/letsencrypt/live# cd /var/scripts/
-/var/scripts# ./run_certbot.sh
+# /var/scripts/run_certbot.sh --test-cert
+```
 
-IMPORTANT NOTES:
- - If you lose your account credentials, you can recover through
-   e-mails sent to w.maeda@neogenia.co.jp.
- - Congratulations! Your certificate and chain have been saved at
-   /etc/letsencrypt/live/redmine.neogenia.co.jp/fullchain.pem. Your
-   cert will expire on 2017-05-16. To obtain a new version of the
-   certificate in the future, simply run Let's Encrypt again.
- - Your account credentials have been saved in your Let's Encrypt
-   configuration directory at /etc/letsencrypt. You should make a
-   secure backup of this folder now. This configuration directory will
-   also contain certificates and private keys obtained by Let's
-   Encrypt so making regular backups of this folder is ideal.
- - If you like Let's Encrypt, please consider supporting our work by:
+for production:
 
-   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
-   Donating to EFF:                    https://eff.org/donate-le
-
-/var/scripts# /etc/init.d/nginx reload
- * Reloading nginx configuration nginx
-   ...done.
-/var/scripts#
+```
+# /var/scripts/run_certbot.sh --force-renewal
 ```
 
 ### Update
 
 Updates are done automatically by crond.
+
+manual update:
+
+```
+# letsencrypt renew --no-self-upgrade
+# servie nginx reload
+```
 
