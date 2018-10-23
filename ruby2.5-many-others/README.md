@@ -10,7 +10,7 @@ Target environment and frameworks are,
 ## build
 
 ```
-./build.sh
+./build.sh [version_string]
 
 # check
 docker iamges
