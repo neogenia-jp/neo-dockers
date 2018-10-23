@@ -14,7 +14,7 @@ IMAGE_NAME=neogenia/$(basename $SCRIPT_DIR)
 NAME_TAG=$IMAGE_NAME:$TAG
 echo building image '$NAME_TAG' ...
 
-(cd $SCRIPT_DIR; docker build -t $NAME_TAG --build-arg RUBY_VERSION=$RUBY_VERSION .) \
+(cd $SCRIPT_DIR; time docker build -t $NAME_TAG --build-arg RUBY_VERSION=$RUBY_VERSION .) \
 && cat <<GUIDE
 # build finished successfuly.
 # If you push image to DockerHub, use below command:
