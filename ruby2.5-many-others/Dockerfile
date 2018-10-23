@@ -1,38 +1,16 @@
-FROM ubuntu:xenial-20171201
+FROM neogenia/ruby2.5
 
 LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
-
-ENV DEBIAN_FRONTEND=noninteractive
 
 ############################################################
 # install dependency packages
 RUN apt-get update && apt-get -y install \
-        build-essential \
-        libreadline-dev \
-        libssl-dev \
-        libxml2-dev \
-        libxslt1-dev \
-        libyaml-dev \
-        zlib1g-dev \
         libmysqld-dev \
-        libfontconfig \
-        imagemagick libmagickwand-dev \
-        wget \
         unzip \
         git \
+        imagemagick libmagickwand-dev \
         mysql-client \
-        vim-tiny \
-        locales \
-        tzdata \
         monit
-
-############################################################
-# install ruby
-ENV RUBY_VERSION 2.5.0
-RUN wget -O - http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
- && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc && make install ) \
- && rm -rf /ruby-${RUBY_VERSION}
-RUN gem install bundle
 
 ############################################################
 # install nodejs, npm packages
