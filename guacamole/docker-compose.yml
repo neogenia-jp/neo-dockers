@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 
 volumes:
   guac_mysql_data_volume:
@@ -37,6 +37,6 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      - LETS_ENCRYPT_CERT_EMAIL=HTTPS_CERT_EMAIL
+      - LETS_ENCRYPT_CERT_EMAIL=$HTTPS_CERT_EMAIL
       - APP_DOMAIN=$DOMAIN_NAME
 

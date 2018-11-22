@@ -19,9 +19,7 @@ if [ -z "$DOMAIN_NAME" -o -z "$HTTPS_CERT_EMAIL" ]; then
   exit 1
 fi
 
-echo building container images ...
-
-docker run --rm guacamole/guacamole:$VERSION /opt/guacamole/bin/initdb.sh --mysql > mysql/docker-entrypoint-initdb.d/initdb.sql
+docker run guacamole/guacamole:$VERSION /opt/guacamole/bin/initdb.sh --mysql > mysql/docker-entrypoint-initdb.d/initdb.sql
 
 (cd $SCRIPT_DIR; docker-compose up --build)
 

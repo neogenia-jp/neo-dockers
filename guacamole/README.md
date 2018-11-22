@@ -1,21 +1,48 @@
-# FreeRDP-WebConnect
+# Apache Guacamole with HTTPS
 
-Enjoy FreeRDP-WebConnect environment !
+Apache Guacamole is HTML5-based remote desktop client.
+supported remote desktop protocols:
+- RDP
+- VNC
+- SSH
 
-https://github.com/FreeRDP/FreeRDP-WebConnect/
+https://guacamole.apache.org/
 
-## build
+Enjoy remote desktop environment !
 
-```bash
-./build.sh
-
-# check
-docker iamges
-```
-
-## use
+## Usage
 
 ```
-docker run -p 8080:80 freerdp-webconnect
-open 'http://localhost:8080/wsgate/'
+sudo ./run.sh <DOMAIN_NAME> <HTTPS_CERT_EMAIL>
+open 'http://localhost:8080/guacamole/'
 ```
+
+For example:
+```
+sudo ./run.sh localhost.localdomain test@example.com
+```
+
+## How to setup Let's Encrypt
+
+Use `setup_letsencrypt.sh`.
+
+```
+$ sudo docker exec -ti guacamole_nginx_1 bash
+root@69dd3eff37fc:/# rm -rf /etc/letsencrypt/*
+root@69dd3eff37fc:/# /var/scripts/setup_letsencrypt.sh --force-renewal
+root@69dd3eff37fc:/# service nginx reload
+```
+
+## How to initialize (reset mysql data)
+
+Please remove mysql data volume.
+
+```
+$ sudo docker volume ls
+DRIVER              VOLUME NAME
+local               guacamole_guac_mysql_data_volume
+$ sudo docker volume rm guacamole_guac_mysql_data_volume
+guacamole_guac_mysql_data_volume
+$
+```
+
