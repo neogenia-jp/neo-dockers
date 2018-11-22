@@ -12,7 +12,7 @@ TAG=${2:-$RUBY_VERSION}
 
 IMAGE_NAME=neogenia/$(basename $SCRIPT_DIR)
 NAME_TAG=$IMAGE_NAME:$TAG
-echo building image '$NAME_TAG' ...
+echo building image "$NAME_TAG" ...
 
 (cd $SCRIPT_DIR; time docker build -t $NAME_TAG --build-arg RUBY_VERSION=$RUBY_VERSION .) \
 && cat <<GUIDE
