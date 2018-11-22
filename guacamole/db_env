@@ -1,0 +1,5 @@
+MYSQL_DATABASE=guachamole
+MYSQL_USER=guachamole
+MYSQL_PASSWORD=guachamole
+MYSQL_ROOT_PASSWORD=-root-
+

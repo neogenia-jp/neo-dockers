@@ -1,0 +1,42 @@
+version: "3"
+
+volumes:
+  guac_mysql_data_volume:
+    driver: local
+
+services:
+  guacd:
+    image: guacamole/guacd:$VERSION
+    expose:
+      - "4822"
+
+  guacamole:
+    image: guacamole/guacamole:$VERSION
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_HOSTNAME=mysql
+      - GUACD_HOSTNAME=guacd
+    env_file: db_env
+
+  mysql:
+    image: mysql/mysql-server:5.7
+    volumes:
+      - guac_mysql_data_volume:/var/lib/mysql
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    expose:
+      - "3306"
+    env_file: db_env
+
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        - app_domain=$DOMAIN_NAME
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - LETS_ENCRYPT_CERT_EMAIL=HTTPS_CERT_EMAIL
+      - APP_DOMAIN=$DOMAIN_NAME
+
