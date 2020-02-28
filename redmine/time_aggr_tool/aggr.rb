@@ -181,7 +181,7 @@ def dump(tickets, depth=0)
             end
   list = []
   tickets.each do |t|
-    a = [t.id, t.parent_id, ('　'*depth)+t.title, t.start_date, t.finish_date, t.status, t.yotei_kosu]
+    a = [t.id, t.parent_id, ('├　'*depth)+t.title, t.start_date, t.finish_date, t.status, t.yotei_kosu]
     times = t.time_logs&.group_by{|log| log.user}&.map do |user, logs|
       ts = TimeSummary.from_time_logs logs
       [user, ts.min_date, ts.max_date, ts.design, ts.develop, ts.other, ts.total, ts.comulative]
@@ -204,8 +204,8 @@ rows = Enumerator.new do |y|
         bkup = row
         row += elem.take(1)
         elem.drop(1).each do |sub_row|
-         #sub_rows << Array(i+1){''} + sub_row
-         sub_rows << bkup + sub_row
+          #sub_rows << Array(i+1){''} + sub_row
+          sub_rows << bkup + sub_row
         end
       else
         row << elem
