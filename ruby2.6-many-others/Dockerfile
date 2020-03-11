@@ -1,5 +1,5 @@
 ARG RUBY_VERSION=2.6.0
-FROM neogenia/ruby2.6:$RUBY_VERSION
+FROM neogenia/ruby:$RUBY_VERSION
 
 LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
 
