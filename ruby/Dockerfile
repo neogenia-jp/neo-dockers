@@ -24,7 +24,7 @@ RUN apt-get update && apt-get -y install \
 ############################################################
 # install ruby
 ARG RUBY_VERSION=2.6.0
-ARG BUILD_OPTS="--with-jemalloc"
+ARG BUILD_OPTS=""
 RUN wget -O - http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc ${BUILD_OPTS} && make install ) \
  && rm -rf /ruby-${RUBY_VERSION}
