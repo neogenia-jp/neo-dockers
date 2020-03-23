@@ -1,0 +1,3 @@
+[submodule "remote-poi/RemotePOI"]
+	path = remote-poi/RemotePOI
+	url = git@github.com:neogenia-jp/RemotePOI.git
