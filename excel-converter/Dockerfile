@@ -24,16 +24,16 @@ RUN apt-get install -y 'fonts-takao-*'
 RUN apt-get install -y netcat
 
 RUN mkdir /var/scripts/
-ADD convert.rb /var/scripts/
-ADD convert_server.sh /var/scripts/
-ADD converter.rb /var/scripts/
-RUN chmod +x /var/scripts/convert.rb /var/scripts/convert_server.sh
+ADD convert* /var/scripts/
+RUN chmod +x /var/scripts/convert.rb /var/scripts/convert_server*.sh
 
 WORKDIR /var/scripts/
+
+EXPOSE 2222 2223 2224
 
 ############################################################
 # clean apt-get files
 RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
-CMD ["/var/scripts/convert_server.sh"]
+CMD ["/var/scripts/convert_servers.sh"]
 

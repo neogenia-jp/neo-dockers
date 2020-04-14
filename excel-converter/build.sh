@@ -9,7 +9,7 @@ SCRIPT_DIR=${SCRIPT_DIR:-$(cd $(dirname $0) && pwd)}
 
 TAG=${1:-latest}
 
-IMAGE_NAME=neogenia/xls-pdf-converter
+IMAGE_NAME=neogenia/excel-converter
 NAME_TAG=$IMAGE_NAME:$TAG
 echo building image "$NAME_TAG" ...
 
