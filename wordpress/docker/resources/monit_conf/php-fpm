@@ -1,0 +1,4 @@
+check process php-fpm with pidfile /var/run/php/php7.2-fpm.pid
+   start program = "/var/scripts/start_fpm.sh | logger -t start_fpm" timeout 300 seconds
+   stop program = "/var/scripts/stop_fpm.sh"
+   depend mysqld
