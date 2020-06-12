@@ -9,9 +9,9 @@ if [ ! -f .db_initialized ]; then
   # Exec database initialize SQL script.
   echo " exec $SCRIPT_DIR/initdb.sql"
   mysql < $SCRIPT_DIR/initdb.sql
-  if [ -f $SCRIPT_DIR/old_data.dmp ]; then
+  if [ -f /mnt/mysql_data.sql.gz ]; then
     echo '----- importing old_data -----'
-    mysql redmine < $SCRIPT_DIR/old_data.dmp
+    zcat /mnt/mysql_data.sql.gz | mysql redmine
   fi
   touch .db_initialized
 fi

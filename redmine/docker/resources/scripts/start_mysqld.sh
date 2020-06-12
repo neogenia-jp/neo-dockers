@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /var/tmp/
+cd /var/
 
 if [ ! -f .mysql_initialized ]; then
   echo '----- INITIALIZING MYSQL -----'

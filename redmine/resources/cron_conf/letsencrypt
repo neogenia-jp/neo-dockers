@@ -1,1 +1,0 @@
-14 4 14 */2 * . /root/.profile && letsencrypt renew --no-self-upgrade & /etc/init.d/nginx reload 
