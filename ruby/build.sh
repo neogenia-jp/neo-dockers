@@ -3,7 +3,7 @@
 # Usage:
 #   ./build.sh <ruby_version> [build_options]
 # Example:
-#   ./build.sh 2.6.3 --with-jmalloc
+#   ./build.sh 2.7.1 --with-jemalloc
 #
 SCRIPT_DIR=${SCRIPT_DIR:-$(cd $(dirname $0) && pwd)}
 
