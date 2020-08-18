@@ -46,3 +46,4 @@ RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 CMD ["bash"]
 
+RUN gem install bundler:1.16.6
