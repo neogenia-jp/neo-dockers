@@ -15,7 +15,7 @@ RUN apt-get update && apt-get -y install \
 
 ############################################################
 # install nodejs, npm packages
-RUN wget -O - https://deb.nodesource.com/setup_12.x | bash - \
+RUN wget -O - https://deb.nodesource.com/setup_10.x | bash - \
  && apt-get -y install nodejs \
  && npm install -g gulp \
  && npm install -g typescript
@@ -46,3 +46,4 @@ RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 CMD ["bash"]
 
+RUN gem install bundler:1.16.6
