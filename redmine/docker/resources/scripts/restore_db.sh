@@ -7,4 +7,9 @@ if [ -z "$BACKUP_FILE" ]; then
   exit 1
 fi
 
-zcat "$BACKUP_FILE" | mysql redmine 
+SCRIPT_DIR=$(cd $(dirname $0) && pwd)
+
+echo " exec $SCRIPT_DIR/initdb.sql"
+mysql < $SCRIPT_DIR/initdb.sql
+
+zcat "$BACKUP_FILE" | mysql redmine
