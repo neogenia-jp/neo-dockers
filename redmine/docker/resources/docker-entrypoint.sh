@@ -4,17 +4,17 @@ if [ ! -z "$@" ]; then
   exec "$@"
 else
 
-  # clear log
-  log=/var/log/redmine/default/production.log
-  echo > $log
-  #log2=/var/log/redmine/startup
-  #echo > $log2
+  # initialize log files
+  redmine_log=/var/log/redmine/default/production.log
+  echo > $redmine_log  # cleaning it
+  startup_log=/var/log/redmine/startup.log
+  touch $startup_log   # create it if not exists
 
   # start monit
   echo '--- START MONIT -----'
   if [ -z "$MONIT_ARGS" ]; then
     /etc/init.d/monit start
-    tail -f $log
+    tail -f $redmine_log $startup_log
   else
     monit $MONIT_ARGS -I
   fi

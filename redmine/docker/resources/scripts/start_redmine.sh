@@ -16,6 +16,10 @@ if [ ! -f $LOCK_FILE ]; then
   if [ -f /mnt/mysql_data.sql.gz ]; then
     echo '----- importing old_data -----'
     zcat /mnt/mysql_data.sql.gz | mysql redmine
+    if [ $? -ne 0 ]; then
+      echo "##### ERROR ##### can't initialize RDB"
+      exit 1
+    fi
   fi
   touch $LOCK_FILE
 fi
@@ -26,13 +30,19 @@ rm tmp/pids/* 2>/dev/null
 LOG_FILE=log/production.log
 
 echo '----- bundle install -----'
-gem install mysql2 -v '0.5.3' --source 'https://rubygems.org/'  # patch for mysql2 gem install error
-gem install puma -v '3.12.6' --source 'https://rubygems.org/'
 bundle install
+if [ $? -ne 0 ]; then
+  echo "##### ERROR ##### failed bundle install"
+  exit 1
+fi
 
 echo '----- database migrating -----'
 bin/rake generate_secret_token
 bin/rake db:migrate
+if [ $? -ne 0 ]; then
+  echo "##### ERROR ##### failed db:migrate"
+  exit 1
+fi
 
 chronic bin/rails server -b 0.0.0.0 -d \
   && echo '----- REDMINE STARTED -----'
