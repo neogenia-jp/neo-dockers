@@ -22,14 +22,10 @@ RUN mkdir -p /usr/share/redmine \
  && svn co https://svn.redmine.org/redmine/branches/4.1-stable /usr/share/redmine
 
 # install plugin "work time"
-ARG work_time_ver=0.4.0
+ARG work_time_ver=0.4.1
 RUN  cd /usr/share/redmine/plugins/ \
   && curl -L "https://github.com/tkusukawa/redmine_work_time/archive/${work_time_ver}.tar.gz" | tar xvzf - \
   && mv "redmine_work_time-${work_time_ver}" redmine_work_time
-
-# install plugin "verification"
-RUN  cd /usr/share/redmine/plugins/ \
-  && git clone "https://github.com/skyach/verification.git"
 
 # install plugin "estimate timelog"
 ARG estimate_timelog_ver=0.7.0
