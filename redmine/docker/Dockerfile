@@ -31,11 +31,11 @@ RUN  cd /usr/share/redmine/plugins/ \
 RUN  cd /usr/share/redmine/plugins/ \
   && git clone "https://github.com/skyach/verification.git"
 
-# install plugin "estimate timelog" with additional gem 'iconv'
+# install plugin "estimate timelog"
+ARG estimate_timelog_ver=0.7.0
 RUN  cd /usr/share/redmine/plugins/ \
-  && git clone "https://github.com/lobin-z0x50/redmine_estimate_timelog.git" \
-  && cd redmine_estimate_timelog \
-  && git checkout fix/replac-before-filter-by-before-action
+  && curl -L "https://github.com/toritori0318/redmine_estimate_timelog/archive/release_${estimate_timelog_ver}.tar.gz" | tar xvzf - \
+  && mv "redmine_estimate_timelog-release_${estimate_timelog_ver}" redmine_estimate_timelog
 
 # install plugin "code review"
 ARG code_review_ver=1.0.0
