@@ -1,9 +1,9 @@
 # Redmine All in One Dokcer
 
-## Usage
+## Quick start
 
 ```
-docker build --build-arg -t redmine .
+docker build -t redmine docker/
 docker run --name redmine -ti -p 3000:3000 redmine
 ```
 
@@ -30,14 +30,59 @@ docker build -t redmine \
  .
 ```
 
+## Persistence
+
+Mount a Docker volume or the file system of host to `/var/lib/mysql`.
+
+```
+# create a volume for the first time only.
+docker volume create redmine_mysql_data
+
+# mount the volume when you start the container using '-v' option.
+# for example:
+docker run \
+ -v redmine_mysql_data:/var/lib/mysql ...
+```
+
 ## Data migration
 
+Place the data you want to migrate in the `data` directory,
+and mount the some directories in your container.
+
+
 ### Database (MySQL)
-Please put sql (by mysqldump) to `resources/scripts/old_data.dmp`.
+
+Mount gzipped sql file (by mysqldump) to `/mnt/mysql_data.sql.gz` in your container.
+The file is automatically loaded when the container is started.
+```
+# mount the file when you start the container using '-v' option.
+docker run \
+ -v /path/to/mysql_dump_file.sql.gz:/mnt/mysql_data.sql.gz ...
+```
 
 ### Attachment files
-Please mounto to `/usr/share/redmine/instances/default/files/`.
+
+Mount `data/files/` directory to `/usr/share/redmine/files/` in your container.
+```
+# mount a directory when you start the container using '-v' option.
+docker run \
+ -v `pwd`/data/files:/usr/share/redmine/files ...
+```
+
+or
+
+Extract backup archive files to `/usr/share/redmine/files/` in your container.
 
 ### Mercurial(hg) repos
-Please mount to `/var/hg/`.
+
+Mount `data/hg/` directory to `/var/hg/`.
+```
+# mount a directory when you start the container using '-v' option.
+docker run \
+ -v `pwd`/data/hg:/var/hg ...
+```
+
+or
+
+Extract backup archive files to `/var/hg/` in your container.
 
