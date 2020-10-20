@@ -3,11 +3,11 @@
 # Usage:
 #   ./build.sh <ruby_version> [tag]
 # Example:
-#   ./build.sh 2.6.3 latest
+#   ./build.sh 2.6.6 latest
 #
 SCRIPT_DIR=${SCRIPT_DIR:-$(cd $(dirname $0) && pwd)}
 
-RUBY_VERSION=${1:-2.6.3}
+RUBY_VERSION=${1:-2.6.6}
 TAG=${2:-$RUBY_VERSION}
 
 IMAGE_NAME=neogenia/$(basename $SCRIPT_DIR)

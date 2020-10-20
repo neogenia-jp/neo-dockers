@@ -1,11 +1,12 @@
 # Develop environment suite for Ruby 2.6 web app
 
 Target environment and frameworks are,
-- Rails 5.x (hosting by Puma)
-- Typescript
-- Semantic UI
-- MySQL
-- Capybara + PhantomJS (Testing framework)
+- Rails 5.2 or 6.0 (hosting by Puma)
+- MySQL Client
+- Node.js 14
+- yarn
+- Typescript 4.0
+- Headless Chrome (for Integration Test)
 
 ## build
 
