@@ -1,7 +1,5 @@
 FROM ubuntu:bionic-20190612
 
-LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 ############################################################
@@ -15,8 +13,7 @@ RUN apt-get update && apt-get -y install \
         libyaml-dev \
         libjemalloc-dev \
         zlib1g-dev \
-        libfontconfig \
-        wget \
+        curl \
         vim-tiny \
         locales \
         tzdata
@@ -25,7 +22,7 @@ RUN apt-get update && apt-get -y install \
 # install ruby
 ARG RUBY_VERSION=2.6.0
 ARG BUILD_OPTS=""
-RUN wget -O - http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
+RUN curl -L http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc ${BUILD_OPTS} && make install ) \
  && rm -rf /ruby-${RUBY_VERSION}
 RUN gem install bundle
@@ -36,3 +33,5 @@ RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 CMD ["bash"]
 
+LABEL vendor     "Neogenia Ltd."
+LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
