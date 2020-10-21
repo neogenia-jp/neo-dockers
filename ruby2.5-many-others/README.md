@@ -1,11 +1,10 @@
 # Develop environment suite for Ruby 2.5 web app
 
 Target environment and frameworks are,
-- Rails 5.x (hosting by Puma)
-- Typescript
-- Semantic UI
-- MySQL
-- Capybara + PhantomJS (Testing framework)
+- Rails 5.0 (hosting by Puma)
+- MySQL Client
+- Typescript 4.0
+- Headless Chrome (for Integration Test)
 
 ## build
 
