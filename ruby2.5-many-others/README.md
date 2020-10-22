@@ -3,6 +3,7 @@
 Target environment and frameworks are,
 - Rails 5.0 (hosting by Puma)
 - MySQL Client
+- Node.js 10
 - Typescript 4.0
 - Headless Chrome (for Integration Test)
 
