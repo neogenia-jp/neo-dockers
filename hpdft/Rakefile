@@ -1,0 +1,25 @@
+def sudo(cmd)
+  s = 'sudo ' unless Process.uid == 0
+  sh "#{s}#{cmd}"
+end
+ 
+IMAGE_NAME = 'neogenia/hpdft'
+TAG = :latest
+NAME_TAG = "#{IMAGE_NAME}:#{TAG}"
+
+desc 'build docker image'
+task :build do
+  
+  puts %Q|building image "#{NAME_TAG}" ...|
+  
+  sudo "time docker build -t #{NAME_TAG} ."
+end
+
+desc 'push docker image to DockerHub'
+task :push do
+  sudo "docker login"
+  sudo "docker push #{NAME_TAG}"
+end
+
+task default: :build
+
