@@ -1,9 +1,6 @@
-ARG RUBY_VERSION=2.5.0
-FROM neogenia/ruby2.5:$RUBY_VERSION
+ARG RUBY_VERSION=2.5.8
+FROM neogenia/ruby:$RUBY_VERSION
 
-LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
-
-############################################################
 # install dependency packages
 RUN apt-get update && apt-get -y install \
         libmysqld-dev \
@@ -13,35 +10,37 @@ RUN apt-get update && apt-get -y install \
         mysql-client \
         monit
 
-############################################################
 # install nodejs, npm packages
-RUN wget -O - https://deb.nodesource.com/setup_6.x | bash - \
- && apt-get -y install nodejs npm \
+RUN curl -L https://deb.nodesource.com/setup_10.x | bash - \
+ && apt-get -y install nodejs \
  && npm install -g gulp \
  && npm install -g typescript
 
-############################################################
-# install phantomjs
-RUN wget -O - https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 | tar jx \
- && cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin \
- && chmod a+x /usr/local/bin/phantomjs \
- && rm -r phantomjs-2.1.1-linux-x86_64
+# install headless chrome
+RUN curl -L https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable
+
+# clean apt-get files
+RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # install Japanese fonts
-RUN wget http://dl.ipafont.ipa.go.jp/IPAexfont/IPAexfont00301.zip \
- && unzip IPAexfont00301.zip \
+ARG FONT_FILE=IPAexfont00401
+RUN curl -L -O https://moji.or.jp/wp-content/ipafont/IPAexfont/${FONT_FILE}.zip \
+ && unzip ${FONT_FILE}.zip \
  && mkdir -p /usr/share/fonts/japanese/TrueType/ \
- && mv IPAexfont00301/*.ttf /usr/share/fonts/japanese/TrueType/ \
- && rm -r IPAexfont00301*
+ && mv ${FONT_FILE}/*.tt[fc] /usr/share/fonts/japanese/TrueType/ \
+ && rm -r ${FONT_FILE}*
 
-#####################################################
 # misc settings
 RUN usermod -u 1000 www-data
 RUN usermod -s /bin/bash www-data
 
-############################################################
-# clean apt-get files
-RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-
 CMD ["bash"]
+
+LABEL vendor     "Neogenia Ltd."
+LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
+
+RUN gem install bundler
 
