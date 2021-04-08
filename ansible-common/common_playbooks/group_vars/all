@@ -1,0 +1,11 @@
+# アクセス可能なユーザ
+# 新規ユーザを追加する場合は、ここに追加してください。
+users:
+  - name: 'lobin'
+    password: '12345678'
+    public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDvB5bK2dfmoOsQ+XuL/X6HQxv3ADktDk3uVwOtDb49pK2am+a88bavvC2TeCBaKhOqezBb7vUsnbGxFDmg4oAg3snxpFsG/WOSYMm5itEPr/Roq2EP56x9F6+UYW6i/QZ5hCs1J3aSq3LikRaKyf5qtPfqRSV/ejF1VNuGJpgcoOYxyJKr+srVBthXgDmdBVQmxULw/xoJ0hnH1l9D1LRxf02UhW8cOtbVhcDZI2AVETIUVI5azYzc3fkyP59/fPAHe/iHacQLI20Fd7QpQwAd1oASMOxjFOtkzO3bkr8wh1LgKbOHGtW3hpI+pzyKBQbOcSQ/whofy1CfA79hcPMf w.maeda@neogenia.co.jp'
+
+# 削除するユーザ
+# 一度登録したユーザを削除する場合は、こっちに移動してください。
+del_users:
+  - name: 'lobin3'
