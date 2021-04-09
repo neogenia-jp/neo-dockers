@@ -9,3 +9,12 @@ users:
 # 一度登録したユーザを削除する場合は、こっちに移動してください。
 del_users:
   - name: 'lobin3'
+
+install_packages:
+  - tmux
+  - git
+
+# zabbix関連
+# https://qiita.com/shomatan/items/81821d47ca706480ce99#%E8%A8%AD%E5%AE%9A%E9%A0%85%E7%9B%AE%E4%B8%80%E8%A6%A7
+zabbix_agent_version: 5.0
+zabbix_agent_server_host: 192.168.11.22
