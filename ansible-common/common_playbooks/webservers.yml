@@ -1,5 +1,7 @@
 ---
 - hosts: webservers
   roles:
-    - users
-
+    #- users
+    - install_ruby26
+    - install_packages
+    - shomatan.zabbix-agent
