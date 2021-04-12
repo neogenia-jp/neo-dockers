@@ -84,3 +84,22 @@ ansible-playbook -i inventry.ini playbook.yml
 ./exec-playbook.sh /home/neo/playbook1/ -i inventry.ini playbook.yml
 ```
 
+## SSH接続設定
+
+ターゲットサーバへのSSH接続設定をカスタマイズする場合は、
+`inventories/` 配下のインベントリファイルに以下のように記述してください。
+
+```
+[webservers:vars]
+ansible_port=(sshのポート番号、デフォルト22)
+ansible_user=(ssh接続先のユーザー名)
+ansible_ssh_pass=(パスワード)
+ansible_ssh_private_key_file=(秘密鍵のパス (~/.ssh/id_rsa など))
+```
+
+また、秘密鍵ファイルの指定だけ行いたい場合は、以下のようにコマンドラインオプションで指定する方法もあります。
+
+```
+ansible-playbook --private-key=/path/to/private_key_file -i inventories/development site.yml
+```
+
