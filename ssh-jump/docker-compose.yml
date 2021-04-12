@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  ssh-jump:
+    container_name: ssh-jump
+    build: docker/
+    image: neogenia/ssh-jump
+    tty: true
+    ports:
+      - ${SSHD_PORT:-5432}:22

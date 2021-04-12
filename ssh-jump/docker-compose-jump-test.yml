@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  ssh-jump:
+    container_name: ssh-jump
+    build: docker/
+    image: neogenia/ssh-jump
+    tty: true
+
+  target-server:
+    container_name: target-server
+    build: docker/
+    image: neogenia/ssh-jump
+    tty: true
