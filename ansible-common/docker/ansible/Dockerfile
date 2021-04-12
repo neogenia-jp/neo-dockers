@@ -12,3 +12,5 @@ RUN python3 -m pip install -U pip
 RUN pip3 install ansible
 
 CMD /bin/bash
+
+RUN mkdir -p /root/.ssh/
