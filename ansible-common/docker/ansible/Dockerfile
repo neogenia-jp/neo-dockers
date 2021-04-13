@@ -14,3 +14,12 @@ RUN pip3 install ansible
 CMD /bin/bash
 
 RUN mkdir -p /root/.ssh/
+
+LABEL vendor "Neogenia Ltd."
+LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
+
+RUN localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+ENV LANG="ja_JP.UTF-8" \
+    LANGUAGE="ja_JP:ja" \
+    LC_ALL="ja_JP.UTF-8"
+
