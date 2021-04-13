@@ -27,4 +27,18 @@ if [ ! -d $PLAYBOOK_ROOT ]; then
   usage "'$PLAYBOOK_ROOT' is not a directory."
 fi
 
-exec docker-compose run --rm -e PLAYBOOK_ROOT ansible ansible-playbook $@
+args=()
+for arg; do
+  if [[ $arg =~ ^--private-key=(.+) ]]; then
+    # override the `private-key` option!
+    export KEY_FILE=${BASH_REMATCH[1]}
+    if [ ! -e "$KEY_FILE" ]; then
+      usage "not found private-key file '$key_file'."
+    fi
+    additional_file="-f docker-compose.with_key.yml"
+    arg="--private-key=/root/priv_key"
+  fi
+  args+=( $arg )
+done
+
+exec docker-compose -f docker-compose.yml $additional_file run --rm -e PLAYBOOK_ROOT -e KEY_FILE ansible ansible-playbook "${args[@]}"

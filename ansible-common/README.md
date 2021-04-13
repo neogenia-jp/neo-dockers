@@ -103,3 +103,9 @@ ansible_ssh_private_key_file=(秘密鍵のパス (~/.ssh/id_rsa など))
 ansible-playbook --private-key=/path/to/private_key_file -i inventories/development site.yml
 ```
 
+`exec-playbook.sh` に `--private-key` オプションを指定する場合は、ホスト側のファイルシステムにあるパスを指定できます。
+
+```
+./exec-playbook.sh --private-key=/path/to/private_key_file_on_host -i inventories/development site.yml
+```
+
