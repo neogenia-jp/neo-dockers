@@ -1,0 +1,11 @@
+if [ "$USER" == 'root' ]; then
+  exit 0
+fi
+
+SUBJECT="sshd login alert"
+BODY="'$USER' has logged in from [$SSH_CLIENT] at `date +'%Y/%m/%d %H:%M:%S %Z'`"
+chronic /usr/local/bin/send_notify "$SUBJECT" "$BODY"
+if [ "$?" != "0" ]; then
+  echo "ERROR: can't send a ssh login alert notification."
+  exit 1
+fi

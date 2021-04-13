@@ -10,10 +10,17 @@ SSH踏み台サーバのための Docker コンテナです。
 
 ## 使い方
 
-Dockerホスト側に開く SSH サーバのポート番号を環境変数で指定できます。
+Dockerホスト側に開く SSH サーバのポート番号を指定してください。
 例えば 10022 としたい場合、以下のようにします。
 
 ```
+docker run -p10022:22 -d --name ssh-jump neogenia/ssh-jump:latest
+```
+
+docker-composeを使用する場合は、環境変数で指定できます。
+
+```
+cd /path/to/repository_root
 SSHD_PORT=10022 docker-compose up --build
 ```
 
@@ -182,4 +189,34 @@ fi
 [参考1](http://blog.manaten.net/entry/ssh-agent-forward)
 [参考2](http://mashi.exciton.jp/archives/tag/%E7%A7%98%E5%AF%86%E9%8D%B5)
 
-また、鍵ファイルは ~/.ssh/id_rsa macOS の場合は、
+
+## SSH ログイン時の通知
+
+踏み台サーバにSSHログインが行われた際に、通知を飛ばすことが出来ます。
+現在対応している通知の方法は、以下のとおりです。
+
+1. メール通知
+
+    環境変数 `NOTIFY_MAIL_TO` に送信先メールアドレスを設定してください。
+
+2. WebHook
+
+    Mattermost などのチャットサービスに投稿するような用途を想定しています。
+    環境変数 `NOTIFY_WEBHOOK_URL` に URL を設定してください。
+
+実行例:
+```
+docker run -p10022:22 -d --name ssh-jump \
+  -e CONTAINER_NAME=ssh-jump-$HOSTNAME \
+  -e NOTIFY_WEBHOOK_URL=https://chat.neogenia.co.jp/hooks/xxxxxxxx \
+  neogenia/ssh-jump:latest
+```
+
+docker-composeを使用する場合は、以下のようにします。
+```
+cd /path/to/repository_root
+SSHD_PORT=10022 \
+  CONTAINER_NAME=ssh-jump-$HOSTNAME \
+  NOTIFY_WEBHOOK_URL=https://chat.neogenia.co.jp/hooks/xxxxxxxx \
+  docker-compose up
+```

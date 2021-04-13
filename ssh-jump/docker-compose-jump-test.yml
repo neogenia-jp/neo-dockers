@@ -6,6 +6,9 @@ services:
     build: docker/
     image: neogenia/ssh-jump
     tty: true
+    environment:
+      NOTIFY_WEBHOOK_URL: https://chat.neogenia.co.jp/hooks/xxxxxxxx
+      CONTAINER_NAME: ssh-jump-test01
 
   target-server:
     container_name: target-server

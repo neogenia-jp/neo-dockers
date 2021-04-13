@@ -8,3 +8,7 @@ services:
     tty: true
     ports:
       - ${SSHD_PORT:-5432}:22
+    environment:
+      CONTAINER_NAME: ssh-jump-$HOSTNAME
+      LOGIN_ALERT_MAIL_TO:
+      NOTIFY_WEBHOOK_URL:
