@@ -180,7 +180,9 @@ services:
    com.zabbix.os: "alpine"
 
  zabbix-web-apache-mysql:
-  image: zabbix/zabbix-web-apache-mysql:alpine-5.2-latest
+  image: neogenia/zabbix-web-apache-mysql:latest
+  build:
+   context: zabbix-web-apache-mysql/.
   ports:
    - "80:8080"
    - "443:8443"
