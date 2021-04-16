@@ -407,6 +407,8 @@ services:
 #   - server-cert.pem
 #   - root-ca.pem
   stop_grace_period: 1m
+  cap_add:
+    - SYS_NICE  # "mbind: Operation not permitted" エラーの対応
   networks:
    zbx_net_backend:
     aliases:
