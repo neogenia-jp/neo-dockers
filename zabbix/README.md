@@ -57,6 +57,16 @@ Zabbixでは、アクティブエージェントが接続してきたときに�
 [公式ドキュメント：2 アクティブエージェントの自動登録](https://www.zabbix.com/documentation/2.2/jp/manual/discovery/auto_registration)
 
 
+## HTTPS対応
+
+EzGate と一緒に稼働させることで簡単に HTTPS 対応できます。
+`docker-compose.with_ezgate.yml` に定義がありますので、ドメイン名やメールアドレスなどを必要に応じて書き換えてください。
+起動方法は、以下のようになります。
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml up -d
+```
+
 ## 参考リンク
 
 [Zabbix 5.0 を Docker Compose で起動する手順](https://qiita.com/zembutsu/items/d98099bf68399c56c236)

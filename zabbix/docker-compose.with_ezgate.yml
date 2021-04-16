@@ -1,0 +1,19 @@
+# an additional docker-compose file for add ezgate container
+#   by w.maeda@neogenia.co.jp (2021-04-16)
+
+version: '3.5'
+services:
+ ezgate:
+  image: neogenia/ez-gate:latest
+  environment:
+    PROXY_TO: zabbix.neogenia.co.jp,zabbix-web-apache-mysql:8080
+    CERT_EMAIL: neogenia.dev@gmail.com
+    DEBUG: 1
+  ports:
+    - 80:80
+    - 443:443
+  networks:
+   zbx_net_frontend:
+    aliases:
+     - ez-gate
+
