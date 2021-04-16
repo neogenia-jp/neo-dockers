@@ -184,8 +184,7 @@ services:
   build:
    context: zabbix-web-apache-mysql/.
   ports:
-   - "80:8080"
-   - "443:8443"
+   - "8080:8080"
   links:
    - mysql-server:mysql-server
    - zabbix-server:zabbix-server
