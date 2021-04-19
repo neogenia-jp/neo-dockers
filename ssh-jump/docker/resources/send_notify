@@ -1,6 +1,10 @@
 #!/bin/bash
 #
-# Parameters (env_vars)
+# Parameters:
+#  - $1: Message title
+#  - $2: Message body
+#
+# env_vars:
 #  - NOTIFY_MAIL_TO: Email address to send login alert.
 #  - NOTIFY_WEBHOOK_URL: Web-hook url to send login alert.
 #  - CONTAINER_NAME: name for this docker container.
@@ -11,6 +15,8 @@ CONTAINER_NAME=
 
 TITLE="[$CONTAINER_NAME] $1"
 MESSAGE="$2 ($CONTAINER_NAME)"
+
+export PATH=/usr/bin:$PATH
 
 if [ -n "$NOTIFY_MAIL_TO" ]; then
   echo $MESSAGE | chronic mail -s "$TITLE" "$NOTIFY_MAIL_TO" || exit 1

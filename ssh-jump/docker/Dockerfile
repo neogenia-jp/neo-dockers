@@ -22,17 +22,20 @@ RUN sed -e 's/^#AllowAgentForwarding .\+$/AllowAgentForwarding yes/' \
         -e 's/^#PermitEmptyPasswords no/PermitEmptyPasswords yes/' \
         -i /etc/ssh/sshd_config
 
-# set autorized_keys for root user
+# set authorized_keys for root user
 RUN cd /root \
  && ssh-keygen -t ecdsa -f /root/.ssh/id_ecdsa -N '' \
  && cat .ssh/id_ecdsa.pub >> .ssh/authorized_keys
 
 # add resource files
-ADD resources/sshrc /etc/ssh/
+ADD resources/pam_callback.sh /usr/local/bin/
 ADD resources/send_notify /usr/local/bin/
-RUN chmod 555 /etc/ssh/sshrc /usr/local/bin/send_notify
+RUN chmod 555 /usr/local/bin/pam_callback.sh /usr/local/bin/send_notify
 ADD resources/startup.sh /var/startup.sh
 RUN chmod 500 /var/startup.sh
+
+# set pam_exec callbacks
+RUN echo 'session     optional      pam_exec.so /usr/local/bin/pam_callback.sh' >> /etc/pam.d/password-auth
 
 EXPOSE 22
 
