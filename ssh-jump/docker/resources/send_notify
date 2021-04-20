@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Parameters:
+#  - $1: Message title
+#  - $2: Message body
+#
+# env_vars:
+#  - NOTIFY_MAIL_TO: Email address to send login alert.
+#  - NOTIFY_WEBHOOK_URL: Web-hook url to send login alert.
+#  - CONTAINER_NAME: name for this docker container.
+
+NOTIFY_MAIL_TO=
+NOTIFY_WEBHOOK_URL=
+CONTAINER_NAME=
+
+TITLE="[$CONTAINER_NAME] $1"
+MESSAGE="$2 ($CONTAINER_NAME)"
+
+export PATH=/usr/bin:$PATH
+
+if [ -n "$NOTIFY_MAIL_TO" ]; then
+  echo $MESSAGE | chronic mail -s "$TITLE" "$NOTIFY_MAIL_TO" || exit 1
+fi
+
+if [ -n "$NOTIFY_WEBHOOK_URL" ]; then
+  TEXT="### $TITLE\n$MESSAGE"
+  chronic curl \
+    -H "Content-Type: application/json" \
+    -d "{\"text\": \"${TEXT}\"}"  \
+    "$NOTIFY_WEBHOOK_URL" || exit 2
+fi
+
