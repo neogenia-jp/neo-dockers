@@ -1,0 +1,20 @@
+- name: グループを追加
+  group: name=neogenia
+
+- name: ユーザを追加
+  user: name={{item.name}} state=present password={{item.password | password_hash('sha512')}} group=neogenia groups=wheel
+  with_items: "{{users}}"
+
+- name: 公開鍵の追加
+  authorized_key: >
+    user={{item.name}}
+    key={{item.public_key}}
+  with_items: "{{users}}"
+  
+# 削除対象ユーザのホームディレクトリごと削除する。SSH公開鍵も削除される。
+- name: ユーザを削除
+  user: >
+    name={{ item.name }}
+    state=absent
+    remove=yes
+  with_items: '{{ del_users }}'

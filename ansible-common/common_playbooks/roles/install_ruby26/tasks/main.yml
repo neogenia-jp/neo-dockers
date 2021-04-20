@@ -1,0 +1,38 @@
+- name: Enable SCL repository
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - centos-release-scl-rh
+      - centos-release-scl
+
+- name: Install Ruby2.6 from SCL
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - rh-ruby26
+      - rh-ruby26-ruby-devel
+
+- name: ...check setting for Ruby of SCL
+  stat:
+    path: /etc/profile.d/rh-ruby26.sh
+  register: chk_file
+
+- name: Setting to enable Ruby of SCL at a user logged in.
+  shell: |
+    echo 'source scl_source enable rh-ruby26' > /etc/profile.d/rh-ruby26.sh
+  when: chk_file.stat.exists == false
+
+- name: ...check version for installed rake gem
+  command: "bash -lc 'rake --version'"
+  check_mode: no
+  register: installed_rake_version
+  changed_when: False   # changed にしない
+
+- name: Install rake
+  shell: |
+    bash -lc 'gem install rake'
+  when: installed_rake_version.rc != 0

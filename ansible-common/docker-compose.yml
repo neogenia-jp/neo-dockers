@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  ansible:
+    container_name: ansible
+    build: docker/ansible
+    image: neogenia/ansible-server
+    tty: true
+    working_dir: /mnt
+    volumes:
+      - ${PLAYBOOK_ROOT:-./sample_playbook}:/mnt:rw
+
+  target01:
+    container_name: target01
+    build: docker/target
+    tty: true
+
+  target02:
+    container_name: target02
+    build: docker/target
+    tty: true
