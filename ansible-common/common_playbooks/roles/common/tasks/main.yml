@@ -1,0 +1,3 @@
+# SELinux有効時にcopy,file,templateモジュールを使うのに必要
+- name: libselinux-pythonインストール
+  yum: name=libselinux-python state=present

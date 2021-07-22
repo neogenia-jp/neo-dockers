@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  # override
+  ansible:
+    volumes:
+      - $KEY_FILE:/root/priv_key:ro
