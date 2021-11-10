@@ -67,6 +67,11 @@ EzGate と一緒に稼働させることで簡単に HTTPS 対応できます。
 docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml up -d
 ```
 
+## Slack通知
+
+https://devlog.arksystems.co.jp/2021/07/27/13746/
+上記サイトの説明で `{$ZABBIX_URL}` とある箇所は `{$ZABBIX.URL}` が正解かと思われる。
+
 ## 参考リンク
 
 [Zabbix 5.0 を Docker Compose で起動する手順](https://qiita.com/zembutsu/items/d98099bf68399c56c236)
