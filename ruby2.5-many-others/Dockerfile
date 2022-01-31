@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=2.5.8
+ARG RUBY_VERSION=2.5.9
 FROM neogenia/ruby:$RUBY_VERSION
 
 # install dependency packages
@@ -8,6 +8,7 @@ RUN apt-get update && apt-get -y install \
         git \
         imagemagick libmagickwand-dev \
         mysql-client \
+        libgnutls30 \
         monit
 
 # install nodejs, npm packages
