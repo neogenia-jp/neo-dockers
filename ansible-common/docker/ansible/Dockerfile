@@ -8,6 +8,9 @@ RUN yum -y install python3 openssh-clients
 # pip のアップグレード（標準でインストールされるのは古すぎてエラーが出るため）
 RUN python3 -m pip install -U pip
 
+ENV PYTHONIOENCODING utf-8
+ENV LC_ALL en_US.UTF-8
+
 # install ansible
 RUN pip3 install ansible
 
