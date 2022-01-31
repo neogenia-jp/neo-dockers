@@ -1,16 +1,15 @@
-# Develop environment suite for Ruby 2.7 web app
+# Develop environment suite for Ruby on Rails web app
 
 Target environment and frameworks are,
 - Rails 6.x (hosting by Puma)
 - Typescript
-- Semantic UI
 - MySQL
 - Capybara + Headless Chrome (Testing framework)
 
 ## build
 
 ```
-./build.sh [version_string]
+./build.sh [ruby_version_string]
 
 # check
 docker iamges
@@ -25,6 +24,5 @@ docker iamges
 docker login
 
 # push
-docker push neogenia/ruby2.7-many-others
+docker push neogenia/rails-basic
 ```
-
