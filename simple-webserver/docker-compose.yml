@@ -1,0 +1,35 @@
+version: '2'
+
+volumes:
+   cert_dir:
+     driver: local
+
+services:
+  sftp_sv:
+    container_name: sftp_sv
+    build:
+      context: sftp_server/
+    image: sftp_server
+    ports:
+      - "10022:22"
+    restart: always
+    volumes:
+      - ./wwwroot:/home/sftpuser1/wwwroot
+
+  web_sv:
+    container_name: web_sv
+    build:
+      context: web_server/
+      args:
+        - app_domain=simple-web.neogenia.co.jp  # ドメインをセットしてください
+    image: web_server
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    environment:
+      LETS_ENCRYPT_CERT_MAIL: test1@example.com  # メールアドレスをセットしてください
+    volumes:
+      - cert_dir:/etc/letsencrypt
+      - ./wwwroot:/var/www/wwwroot
+      - ./nginx_logs/:/var/log/nginx

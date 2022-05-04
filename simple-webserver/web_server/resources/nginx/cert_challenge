@@ -1,0 +1,13 @@
+server {
+        server_name  localhost mavisone;
+        listen       80;
+
+        location ^~ /.well-known/acme-challenge/ {
+                root /var/www/letsencrypt;
+        }
+
+        location / {
+                return 301   https://$host$request_uri;
+        }
+}
+
