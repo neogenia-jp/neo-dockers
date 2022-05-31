@@ -43,5 +43,5 @@ CMD ["bash"]
 LABEL vendor     "Neogenia Ltd."
 LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
 
-RUN gem install bundler
+RUN gem install bundler:2.1.4
 
