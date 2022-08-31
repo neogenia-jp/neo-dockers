@@ -30,7 +30,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --version=${COMPOSER_VER
  && mv composer.phar /usr/local/bin/composer
 
 # install node.js
-RUN yum install -y https://rpm.nodesource.com/pub_12.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm \
+ARG NODE_VERSION=16
+RUN yum install -y https://rpm.nodesource.com/pub_${NODE_VERSION}.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm \
  && yum install -y nodejs
 
 # nginx settings
