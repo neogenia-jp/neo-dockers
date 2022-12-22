@@ -23,6 +23,10 @@ RUN apt-get install -y 'fonts-takao-*'
 
 RUN apt-get install -y netcat
 
+# TODO: ベースイメージ切り替える時に、上の方に持っていって整理したい
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y tzdata
+
 RUN mkdir /var/scripts/
 ADD convert* /var/scripts/
 RUN chmod +x /var/scripts/convert.rb /var/scripts/convert_server*.sh
