@@ -1,7 +1,8 @@
 ARG MARIA_DB_VERSION=10.8.2
 FROM mariadb:$MARIA_DB_VERSION
 
-MAINTAINER tomoprog <t.yamamoto@neogenia.co.jp>
+LABEL vendor     "Neogenia Ltd."
+LABEL maintainer "tomoprog <t.yamamoto@neogenia.co.jp>"
 
 # install mroonga
 RUN apt update \
@@ -15,9 +16,9 @@ RUN apt update \
     && apt update \
     && apt install -y groonga-tokenizer-mecab
 
-# clear apt chach
+# clear apt cache
 RUN apt clean \
     && rm -rf /var/lib/apt/lists/*
 
-# install mroonga plugin in MariaDB
+# install mroonga plugin of MariaDB
 RUN ln -s /usr/share/mysql/mroonga/install.sql /docker-entrypoint-initdb.d
