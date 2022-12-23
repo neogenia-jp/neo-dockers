@@ -4,6 +4,13 @@ require 'pathname'
 require 'tempfile'
 require 'libreconv'
 
+class Libreconv::Converter
+  def command_env
+    # HACK: TZ を渡さないとUTCで日付評価されてしまう
+    Hash[%w[TZ HOME PATH LANG LD_LIBRARY_PATH SYSTEMROOT TEMP].map { |k| [k, ENV[k]] }]
+  end
+end
+
 class Converter
  def self.convert(input_file, output_file, convert_type='pdf')
   if File.directory? output_file
