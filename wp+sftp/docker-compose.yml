@@ -1,0 +1,70 @@
+version: '2'
+
+volumes:
+  mysql_data:
+    driver: local
+    www_data:
+      driver: local
+      cert_dir:
+        driver: local
+
+services:
+  # SFTPサーバ
+  easysftp:
+    container_name: easysftp
+    build:
+      context: ./easy_sftp_sv/
+      ports:
+        - "10022:22"
+      volumes:
+        - www_data:/home/sftpuser1/www_root
+      restart: always
+
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.33-debian
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mmm-mysql
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      restart: always
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress:6.2.2-php8.2-apache
+    volumes:
+      - www_data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      restart: always
+      depends_on:
+
+  # SSLアクセラレータ
+  # https://github.com/neogenia-jp/EzGate/blob/master/README.ja.md
+  ezgate:
+    container_name: ezgate
+    image: neogenia/ez-gate
+    volumes:
+      - cert_dir:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PROXY_TO: test1.neogenia.co.jp,wordpress:80
+      CERT_EMAIL: w.maeda@neogenia.co.jp
+      restart: always
+      depends_on:
+        - wordpress
+
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:latest
+#    restart: always
+#    depends_on:
+#      - db
+#    ports:
+
