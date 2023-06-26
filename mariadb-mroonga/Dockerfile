@@ -10,7 +10,7 @@ RUN apt update \
 
 # install mecab tokenizer
 RUN apt update \
-    && apt install -y software-properties-common \
+    && apt install -y software-properties-common gpg-agent \
     && add-apt-repository -y universe \
     && add-apt-repository -y ppa:groonga/ppa \
     && apt update \
