@@ -1,4 +1,4 @@
-FROM ubuntu:bionic-20190612
+FROM ubuntu:jammy-20221101
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get -y install \
 
 ############################################################
 # install ruby
-ARG RUBY_VERSION=2.6.0
+ARG RUBY_VERSION=3.1.2
 ARG BUILD_OPTS=""
 RUN curl -L http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc ${BUILD_OPTS} && make install ) \
