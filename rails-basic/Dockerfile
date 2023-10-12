@@ -18,12 +18,15 @@ RUN curl -L https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add 
     && apt-get install -y google-chrome-stable
 
 # install Japanese fonts
+# TODO: `apt install -y fonts-ipafont` でいける？
 ARG FONT_FILE=IPAexfont00401
 RUN curl -L -O https://moji.or.jp/wp-content/ipafont/IPAexfont/${FONT_FILE}.zip \
  && unzip ${FONT_FILE}.zip \
  && mkdir -p /usr/share/fonts/japanese/TrueType/ \
  && mv ${FONT_FILE}/*.tt[fc] /usr/share/fonts/japanese/TrueType/ \
- && rm -r ${FONT_FILE}*
+ && chmod 644 /usr/share/fonts/japanese/TrueType/* \
+ && fc-cache -fv \
+ && rm -r ${FONT_FILE}* 
 
 # install node.js, yarn (for webpacker) and some packages
 RUN curl -L 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
@@ -42,6 +45,3 @@ RUN gem install bundler:2.1.4
 RUN usermod -u 1000 www-data
 RUN usermod -s /bin/bash www-data
 
-# misc settings
-RUN usermod -u 1000 www-data
-RUN usermod -s /bin/bash www-data
