@@ -36,8 +36,8 @@ RUN curl -L 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
 # clean apt-get files
 RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
-# update bundler 2.4.x because default-version is 1.17 in ruby 2.6
-RUN gem install bundler:2.4.22
+# update bundler 2.3.x because default-version is 1.17 in ruby 2.6
+RUN gem install bundler:2.3.3
 
 # misc settings
 RUN usermod -u 1000 www-data
