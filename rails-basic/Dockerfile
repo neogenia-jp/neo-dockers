@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=2.7.0
+ARG RUBY_VERSION=3.1.4
 FROM neogenia/ruby:$RUBY_VERSION
 
 # install dependency packages
@@ -31,15 +31,15 @@ RUN curl -L -O https://moji.or.jp/wp-content/ipafont/IPAexfont/${FONT_FILE}.zip 
 # install node.js, yarn (for webpacker) and some packages
 RUN curl -L 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && curl -L 'https://deb.nodesource.com/setup_14.x' | bash - \
+ && curl -L 'https://deb.nodesource.com/setup_20.x' | bash - \
  && apt-get install -y nodejs yarn \
  && yarn global add typescript
 
 # clean apt-get files
 RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
-# update bundler 2.1.x because default-version is 1.17 in ruby 2.7
-RUN gem install bundler:2.1.4
+# update bundler 2.4
+RUN gem install bundler:2.4.22
 
 # misc settings
 RUN usermod -u 1000 www-data
