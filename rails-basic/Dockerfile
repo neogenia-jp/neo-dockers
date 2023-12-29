@@ -45,3 +45,6 @@ RUN gem install bundler:2.4.22
 RUN usermod -u 1000 www-data
 RUN usermod -s /bin/bash www-data
 
+# https://serverfault.com/questions/912162/mysqldump-throws-unknown-table-column-statistics-in-information-schema-1109/912677#912677
+RUN echo "[mysqldump]\ncolumn-statistics=0" > /etc/mysql/mariadb.conf.d/mysqldump.cnf
+
