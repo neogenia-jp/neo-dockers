@@ -63,8 +63,16 @@ EzGate と一緒に稼働させることで簡単に HTTPS 対応できます。
 `docker-compose.with_ezgate.yml` に定義がありますので、ドメイン名やメールアドレスなどを必要に応じて書き換えてください。
 起動方法は、以下のようになります。
 
-```
-docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml up -d
+```sh
+# 新規に稼働させる時
+docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml up -d --build
+
+# EzGateだけを起動し直す時
+docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml stop ezgate
+docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml up -d --build ezgate
+
+# EzGateの設定をリロードするとき
+docker exec -ti ezgate /var/scripts/reload_config
 ```
 
 ## 参考リンク
