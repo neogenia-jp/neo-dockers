@@ -72,7 +72,7 @@ docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml stop ezga
 docker-compose -f docker-compose.yml -f docker-compose.with_ezgate.yml up -d --build ezgate
 
 # EzGateの設定をリロードするとき
-docker exec -ti ezgate /var/scripts/reload_config
+docker exec -ti zabbix_ezgate_1 /var/scripts/reload_config.rb
 ```
 
 ## 参考リンク
