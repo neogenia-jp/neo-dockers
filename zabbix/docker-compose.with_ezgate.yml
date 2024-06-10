@@ -4,9 +4,12 @@
 version: '3.5'
 services:
  ezgate:
-  image: neogenia/ez-gate:latest
+  image: neogenia/ez-gate:20240610
+  volumes:
+    - ./ezgate_mnt:/mnt/
   environment:
-    PROXY_TO: zabbix.neogenia.co.jp,zabbix-web-apache-mysql:8080
+    TZ: Asia/Tokyo
+    CONFIG_PATH: /mnt/config.rb
     CERT_EMAIL: neogenia.dev@gmail.com
     DEBUG: 1
   ports:
