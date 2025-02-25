@@ -40,7 +40,8 @@ RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 RUN gem install bundler:2.4.22
 
-# misc settings
-RUN usermod -u 1000 www-data
-RUN usermod -s /bin/bash www-data
+## misc settings for Ubuntu 24.04
+RUN usermod -u 1001 ubuntu \
+ && usermod -u 1000 www-data \
+ && usermod -s /bin/bash www-data
 
