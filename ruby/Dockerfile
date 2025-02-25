@@ -13,6 +13,7 @@ RUN apt-get update && apt-get -y install \
         libyaml-dev \
         libjemalloc-dev \
         zlib1g-dev \
+        rustc \
         curl \
         vim-tiny \
         locales \
@@ -20,7 +21,7 @@ RUN apt-get update && apt-get -y install \
 
 ############################################################
 # install ruby
-ARG RUBY_VERSION=3.1.2
+ARG RUBY_VERSION=3.2.0
 ARG BUILD_OPTS=""
 RUN curl -L http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc ${BUILD_OPTS} && make install ) \
