@@ -31,7 +31,7 @@ RUN curl -L -O https://moji.or.jp/wp-content/ipafont/IPAexfont/${FONT_FILE}.zip 
 # install node.js, yarn (for webpacker) and some packages
 RUN curl -L 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && curl -L 'https://deb.nodesource.com/setup_20.x' | bash - \
+ && curl -L 'https://deb.nodesource.com/setup_22.x' | bash - \
  && apt-get install -y nodejs yarn \
  && yarn global add typescript
 
