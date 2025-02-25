@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=2.7.0
+ARG RUBY_VERSION=3.2.6
 FROM neogenia/ruby:$RUBY_VERSION
 
 # install dependency packages
