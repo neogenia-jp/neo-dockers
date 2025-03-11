@@ -2,10 +2,16 @@
 #   by w.maeda@neogenia.co.jp (2021-04-16)
 
 version: '3.5'
+
+volumes:
+  cert_dir:
+    driver: local
+
 services:
  ezgate:
   image: neogenia/ez-gate:20240610
   volumes:
+    - cert_dir:/etc/letsencrypt
     - ./ezgate_mnt:/mnt/
   environment:
     TZ: Asia/Tokyo
