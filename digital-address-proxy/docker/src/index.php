@@ -10,6 +10,8 @@ $API_BASE_URL = 'https://api.da.pf.japanpost.jp/api/v1';  // 本番用APIアド�
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
+$max_age = 60 * 60 * 24 * 30; // 30日
+header("Cache-Control: max-age=$max_age");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(204);
