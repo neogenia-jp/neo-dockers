@@ -52,7 +52,8 @@ services:
       - ${CREDENTIALS_FILE_PATH}:/var/www/resources/credentials.json
     environment:
       CREDENTIALS_FILE_PATH   : /var/www/resources/credentials.json
+      X_API_KEY               : 任意の文字列
 ```
 
 `${CREDENTIALS_FILE_PATH}` は 事前準備で作成した`credentials.json` へのパスを、docker-compose.yml ファイルのあるディレクトリからの相対パスまたは絶対パスで指定してください。
-
+環境変数 `X_API_KEY` は任意の文字列で、固定のAPIキーとして利用します。クライアント側とAPIキーを合わせて設定してください。UUIDなどを設定してもよいでしょう。
