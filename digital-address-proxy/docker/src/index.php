@@ -6,6 +6,7 @@
 
 $API_BASE_URL = 'https://api.da.pf.japanpost.jp/api/v1';  // 本番用APIアドレス
 // $API_BASE_URL = 'https://stub-qz73x.da.pf.japanpost.jp/api/v1';  // テスト用APIアドレス
+$API_KEY = $_ENV['X_API_KEY'];
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
@@ -18,7 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
+// 特定のヘッダが付与されていない場合は403を返す
+if (!isset($_SERVER['HTTP_X_API_KEY']) || $_SERVER['HTTP_X_API_KEY'] !== $API_KEY) {
+    http_response_code(403);
+    exit;
+}
+
+// 検索郵便番号の下処理
 $search_code = $_GET['search_code'] ?? basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+$search_code = str_replace('-','', trim($search_code));   // ハイフンを削除する
+
+// 郵便番号バリデーション
+if (!preg_match('/^\d{3,7}$/', $search_code)) {
+    http_response_code(400);
+    exit;
+}
 
 // access_token.json は /tmp に保存させる
 $token_filename = '/tmp/access_token.json';
@@ -51,19 +66,9 @@ if (!isset($token)) {
 }
 
 header('Content-Type: application/json');
-if (preg_match('/^\d{3,7}|\w{7}$/', $search_code)) {
-    $ch = curl_init("$API_BASE_URL/searchcode/$search_code");
-    curl_setopt($ch, CURLOPT_USERAGENT, 'curl/' . curl_version()['version']);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $token"]);
-    curl_exec($ch);
-    http_response_code(curl_getinfo($ch, CURLINFO_RESPONSE_CODE));
-    curl_close($ch);
-} else {
-    $ch = curl_init("$API_BASE_URL/addresszip");
-    curl_setopt($ch, CURLOPT_USERAGENT, 'curl/' . curl_version()['version']);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $token", 'Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['freeword' => $search_code]));
-    curl_exec($ch);
-    http_response_code(curl_getinfo($ch, CURLINFO_RESPONSE_CODE));
-    curl_close($ch);
-}
+$ch = curl_init("$API_BASE_URL/searchcode/$search_code");
+curl_setopt($ch, CURLOPT_USERAGENT, 'curl/' . curl_version()['version']);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $token"]);
+curl_exec($ch);
+http_response_code(curl_getinfo($ch, CURLINFO_RESPONSE_CODE));
+curl_close($ch);
