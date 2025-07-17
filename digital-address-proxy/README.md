@@ -37,21 +37,27 @@ docker build -f docker/Dockerfile -t neogenia/digital-address-proxy .
 
 ## 起動方法
 
-以下はdocker-composeを使った起動方法です。
+以下は docker-compose を使った起動方法です。
 
-次のような記載があるymlファイルを作成してください。
+`credentials.json` が（`docker-compose.yml` から見て） `./config/credentials.json` においてある場合、
+以下のように bindマウントを記述してください。
 
 ```yaml
+# docker-sompose.yml
+version: "3.3"
 services:
   digita_address_proxy:
     container_name: digital-address-proxy
-    image: neogenia/digital-address-proxy:latest
+    image: neogenia/digital-address-proxy:20250710
     ports:
       - "80:80"
     volumes:
-      - ${CREDENTIALS_FILE_PATH}:/var/www/resources/credentials.json
+      - type: bind
+        source: ./config/credentials.json  # ここに相対ファイルパスを書く
+        target: /var/credentials.json
+        read_only: true
     environment:
-      CREDENTIALS_FILE_PATH   : /var/www/resources/credentials.json
+      CREDENTIALS_FILE_PATH: /var/credentials.json
       X_API_KEY               : 任意の文字列
 ```
 

@@ -11,6 +11,8 @@ $API_KEY = $_ENV['X_API_KEY'];
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
+$max_age = 60 * 60 * 24 * 30; // 30日
+header("Cache-Control: max-age=$max_age");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(204);
