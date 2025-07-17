@@ -28,7 +28,7 @@ $search_code = $_GET['search_code'] ?? basename(parse_url($_SERVER['REQUEST_URI'
 $search_code = str_replace('-','', trim($search_code));   // ハイフンを削除する
 
 // 郵便番号バリデーション
-if (!preg_match('/^[0-9]{7}$/', $search_code)) {
+if (!preg_match('/^\d{3,7}$/', $search_code)) {
     http_response_code(400);
     exit;
 }
