@@ -1,0 +1,8 @@
+/appsec-config/*
+!/appsec-config/.keep
+/appsec-data/*
+!/appsec-data/.keep
+/appsec-localconfig/*
+!/appsec-localconfig/.keep
+/appsec-logs/*
+!/appsec-logs/.keep

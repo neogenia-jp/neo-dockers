@@ -6,13 +6,17 @@ version: '3.5'
 volumes:
   cert_dir:
     driver: local
+  shm-volume:
+    driver: local
 
 services:
  ezgate:
-  image: neogenia/ez-gate:20240610
+  image: neogenia/ez-gate:openappsec-rc1
+  ipc: service:appsec-agent
   volumes:
     - cert_dir:/etc/letsencrypt
     - ./ezgate_mnt:/mnt/
+    - shm-volume:/dev/shm/check-point
   environment:
     TZ: Asia/Tokyo
     CONFIG_PATH: /mnt/config.rb
@@ -26,3 +30,24 @@ services:
     aliases:
      - ez-gate
 
+ appsec-agent:
+  image: ghcr.io/openappsec/agent:latest
+  container_name: appsec-agent
+  environment:
+   - SHARED_STORAGE_HOST=appsec-shared-storage
+   - LEARNING_HOST=appsec-smartsync
+   - TUNING_HOST=appsec-tuning-svc
+   - https_proxy=
+   - user_email=
+   - AGENT_TOKEN=${APPSEC_AGENT_TOKEN}
+   - autoPolicyLoad=false
+   - registered_server="NGINX"
+  ipc: shareable
+  restart: unless-stopped
+  volumes:
+   - ./openappsec/appsec-config:/etc/cp/conf
+   - ./openappsec/appsec-data:/etc/cp/data
+   - ./openappsec/appsec-logs:/var/log/nano_agent
+   - ./openappsec/appsec-localconfig:/ext/appsec
+   - shm-volume:/dev/shm/check-point
+  command: /cp-nano-agent
