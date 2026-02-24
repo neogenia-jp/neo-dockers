@@ -3,6 +3,13 @@ FROM centos:7.9.2009
 LABEL vendor     "Neogenia Ltd."
 LABEL maintainer "Wataru Maeda <w.maeda@neogenia.co.jp>"
 
+# リポジトリをvault.centos.org (アーカイブ) に切り替え
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Base.repo \
+ && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo \
+ && yum clean all \
+ && yum -y update \
+ && rm -rf /var/cache/yum/*
+
 # support tools
 RUN yum install -y yum-utils vim git zip unzip
 

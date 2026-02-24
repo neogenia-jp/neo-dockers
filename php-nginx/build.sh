@@ -8,7 +8,7 @@
 SCRIPT_DIR=${SCRIPT_DIR:-$(cd $(dirname $0) && pwd)}
 
 PHP_VERSION=${1:-7.2}
-TAG=$PHP_VERSION
+TAG=$PHP_VERSION-centos7
 
 IMAGE_NAME=neogenia/php-nginx
 NAME_TAG=$IMAGE_NAME:$TAG
