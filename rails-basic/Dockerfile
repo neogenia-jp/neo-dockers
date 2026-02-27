@@ -12,10 +12,7 @@ RUN apt-get update && apt-get -y install \
         monit
 
 # install headless chrome
-RUN curl -L https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable
+RUN apt-get install -y chromium-browser
 
 # install Japanese fonts
 ARG FONT_FILE=IPAexfont00401
