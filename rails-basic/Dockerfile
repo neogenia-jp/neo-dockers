@@ -3,7 +3,7 @@ FROM neogenia/ruby:$RUBY_VERSION
 
 # install dependency packages
 RUN apt-get update && apt-get -y install \
-        libmysqld-dev \
+        default-libmysqlclient-dev \
         mysql-client \
         curl \
         unzip \
@@ -39,6 +39,3 @@ RUN gem install bundler:2.1.4
 RUN usermod -u 1000 www-data
 RUN usermod -s /bin/bash www-data
 
-# misc settings
-RUN usermod -u 1000 www-data
-RUN usermod -s /bin/bash www-data
