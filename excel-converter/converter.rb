@@ -20,10 +20,9 @@ class Converter
     output_dir = File.basename(output_file)
   end
 
-  tmp_file = Tempfile.create('__', output_dir).path
-
-  Libreconv.convert(input_file, tmp_file, nil, convert_type)
-
-  File.rename(tmp_file, output_file)
+  Tempfile.create do |tmp_file|
+    Libreconv.convert(input_file, tmp_file.path, nil, convert_type)
+    File.rename(tmp_file.path, output_file)
+  end
  end
 end
