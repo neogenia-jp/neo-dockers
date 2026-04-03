@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Usage:
-#   ./build.sh <php_version> [composer_version]
+#   ./build.sh <php_version> [node_version]
 # Example:
 #   ./build.sh 7.2
 #
@@ -14,7 +14,7 @@ IMAGE_NAME=neogenia/php-nginx
 NAME_TAG=$IMAGE_NAME:$TAG
 echo building image "$NAME_TAG" ...
 
-(cd $SCRIPT_DIR; time docker build -t $NAME_TAG --build-arg PHP_VERSION=${PHP_VERSION//./} --build-arg COMPOSER_VERSION=${2:-1.10.15} .) \
+(cd $SCRIPT_DIR; time docker build -t $NAME_TAG --build-arg PHP_VERSION=${PHP_VERSION//./} --build-arg NODE_VERSION=${2:-16} .) \
 && cat <<GUIDE
 # build finished successfuly.
 # If you push image to DockerHub, use below command:
