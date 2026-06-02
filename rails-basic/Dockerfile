@@ -12,10 +12,12 @@ RUN apt-get update && apt-get -y install \
         monit
 
 # install headless chrome
-RUN curl -L https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+# arm64版のChromeがないため、chromiumを使う
+# 参考: https://askubuntu.com/questions/1511625/how-to-install-chromium-browser-without-snap-or-flatpak-in-ubuntu-24-04/1511626#1511626
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:xtradeb/apps -y \
     && apt-get update \
-    && apt-get install -y google-chrome-stable
+    && apt-get install -y chromium
 
 # install Japanese fonts
 # TODO: `apt install -y fonts-ipafont` でいける？
