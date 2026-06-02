@@ -40,14 +40,6 @@ if [[ -z "$TAG" ]]; then
   TAG="$RUBY_VERSION"
 fi
 
-# コマンド引数を確認する
-PUSH_FLAG=""
-for arg in "$@"; do
-  if [[ "$arg" == "--push" && $ENABLE_BUILD_X ]]; then
-    PUSH_FLAG="--push"
-  fi
-done
-
 IMAGE_NAME=neogenia/$(basename $SCRIPT_DIR)
 NAME_TAG=$IMAGE_NAME:$TAG
 echo building image "$NAME_TAG" ...
