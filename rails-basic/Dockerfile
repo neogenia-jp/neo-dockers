@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=3.2.6
+ARG RUBY_VERSION=3.4.11
 FROM neogenia/ruby:$RUBY_VERSION
 
 # install dependency packages
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y install \
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:xtradeb/apps -y \
     && apt-get update \
-    && apt-get install -y chromium
+    && apt-get install -y chromium \
     && apt-get install -y chromium-l10n
 
 # install Japanese fonts
