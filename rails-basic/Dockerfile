@@ -18,6 +18,7 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:xtradeb/apps -y \
     && apt-get update \
     && apt-get install -y chromium
+    && apt-get install -y chromium-l10n
 
 # install Japanese fonts
 # TODO: `apt install -y fonts-ipafont` でいける？
