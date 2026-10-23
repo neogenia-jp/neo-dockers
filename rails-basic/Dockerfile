@@ -36,7 +36,8 @@ RUN curl -L 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && curl -L 'https://deb.nodesource.com/setup_22.x' | bash - \
  && apt-get install -y nodejs yarn \
- && yarn global add typescript
+ && yarn global add typescript \
+ && yarn cache clean
 
 # clean apt-get files
 RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
