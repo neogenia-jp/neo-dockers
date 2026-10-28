@@ -46,6 +46,12 @@ RUN curl -L 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
 
 RUN gem install bundler:2.4.22
 
+# install additional deveper's tools
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+        less \
+ && apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
 ## misc settings for Ubuntu 24.04
 RUN usermod -u 1001 ubuntu \
  && usermod -u 1000 www-data \
