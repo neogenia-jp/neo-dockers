@@ -21,7 +21,7 @@ RUN apt-get update && apt-get -y install \
 
 ############################################################
 # install ruby
-ARG RUBY_VERSION=3.2.0
+ARG RUBY_VERSION=3.4.11
 ARG BUILD_OPTS=""
 RUN curl -L http://ftp.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.xz | tar Jx \
  && (cd ruby-${RUBY_VERSION} && ./configure --disable-install-doc ${BUILD_OPTS} && make install ) \
